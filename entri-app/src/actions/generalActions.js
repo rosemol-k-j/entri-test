@@ -24,9 +24,11 @@ export const currentWeather = (latitude, longitude) => {
   // );
 };
 
-export const articleListData = (page) => {
+export const articleListData = (page, query) => {
   return fetch(
-    "https://newsapi.org/v2/everything?q=apple&apiKey=b752afffaea345d1a78e19ceb03ee6f2&page=" +
+    "https://newsapi.org/v2/everything?q=" +
+      query +
+      "&apiKey=b752afffaea345d1a78e19ceb03ee6f2&page=" +
       page
   ).then((res) => res.json());
 

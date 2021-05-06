@@ -11,7 +11,7 @@ a {
 
 .headerComponent {
   box-shadow: 0px 9px 12px #00000029;
-  height: 6rem;
+  height: 8rem !important;
 }
 .articleListComponent {
   box-shadow: 0px 9px 12px #00000029;
@@ -82,4 +82,18 @@ a {
 .weatherIcon {
   margin-top: -33%;
   margin-left: 28%;
+}
+
+.searchComponent {
+  width: 67% !important;
+  margin-top: 2.4rem;
+}
+
+.searchComponent input {
+  height: 3rem;
+  font-size: 1rem;
+}
+
+.searchComponent button.ant-btn.ant-btn-icon-only.ant-input-search-button {
+  border: none !important;
 }

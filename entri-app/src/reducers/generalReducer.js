@@ -81,3 +81,14 @@ export const fetchWeatherReducer = (
       return state;
   }
 };
+
+export const setQueryReducer = (state = { query: "apple" }, action) => {
+  switch (action.type) {
+    case "SET_QUERY":
+      return {
+        query: action.query,
+      };
+    default:
+      return state;
+  }
+};

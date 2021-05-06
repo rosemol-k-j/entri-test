@@ -7,6 +7,7 @@ import ArticleListItem from "./ArticleListItem";
 
 function ArticleListComponent() {
   const articleList = useSelector((state) => state.fetchArticleListReducer);
+  const query = useSelector((state) => state.setQueryReducer);
   const articlePaginate = useSelector(
     (state) => state.fetchArticleListPaginateReducer
   );
@@ -39,7 +40,7 @@ function ArticleListComponent() {
             { status: false, loading: true, data: false }
           )
         );
-        let data = await articleListData(1);
+        let data = await articleListData(1, query.query);
         dispatch(
           Object.assign(
             {},
@@ -58,7 +59,7 @@ function ArticleListComponent() {
       }
     }
     articleListFunc();
-  }, [dispatch]);
+  }, [query, dispatch]);
 
   //Function for paginate
   async function articleListFuncPaginate() {
@@ -91,26 +92,31 @@ function ArticleListComponent() {
 
   return (
     <>
-      <InfiniteScroll
-        initialLoad={false}
-        pageStart={0}
-        loadMore={handleInfiniteOnLoad}
-        hasMore={!loading && hasMore}
-        useWindow={false}
-      >
-        <List
-          dataSource={articleList.data}
-          renderItem={(item, index) => (
-            <ArticleListItem article={item} index={index} />
-          )}
-        ></List>
-      </InfiniteScroll>
-      {articleList.loading ||
-        (articlePaginate.loading && (
-          <div>
-            <Spin className="fullWidth" size="large" />
-          </div>
-        ))}
+      {articleList.loading ? (
+        <div>
+          <Spin className="fullWidth" size="large" />
+        </div>
+      ) : (
+        <InfiniteScroll
+          initialLoad={false}
+          pageStart={0}
+          loadMore={handleInfiniteOnLoad}
+          hasMore={!loading && hasMore}
+          useWindow={false}
+        >
+          <List
+            dataSource={articleList.data}
+            renderItem={(item, index) => (
+              <ArticleListItem article={item} index={index} />
+            )}
+          ></List>
+        </InfiniteScroll>
+      )}
+      {articlePaginate.loading && (
+        <div>
+          <Spin className="fullWidth" size="large" />
+        </div>
+      )}
     </>
   );
 }
