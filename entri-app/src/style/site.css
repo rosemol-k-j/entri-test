@@ -83,7 +83,9 @@ a {
   margin-top: -33%;
   margin-left: 28%;
 }
-
+.weatherComponent .ant-card.ant-card-bordered {
+  background: #98aec3a6 !important;
+}
 .searchComponent {
   width: 67% !important;
   margin-top: 2.4rem;

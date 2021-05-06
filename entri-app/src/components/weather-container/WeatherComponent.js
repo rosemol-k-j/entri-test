@@ -59,13 +59,10 @@ function WeatherComponent() {
           {tempToCelsius(weatherData.data.main.temp) + "°c"}
         </Typography.Title>
         <Typography.Text>
-          {
-            //
-            tempToCelsius(weatherData.data.main.temp_max) +
-              "°c - " +
-              tempToCelsius(weatherData.data.main.temp_min) +
-              "°c "
-          }
+          {tempToCelsius(weatherData.data.main.temp_max) +
+            "°c - " +
+            tempToCelsius(weatherData.data.main.temp_min) +
+            "°c "}
         </Typography.Text>
       </div>
       <div>

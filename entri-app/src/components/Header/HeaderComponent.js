@@ -4,8 +4,10 @@ import { Input, Select } from "antd";
 import { languages } from "../Header/globalConst";
 
 function HeaderComponent() {
+  const query = useSelector((state) => state.setQueryReducer);
+  const language = useSelector((state) => state.setLanguageReducer);
   const [languageList, setLanguageList] = useState([]);
-
+  const [inputQuery, setQuery] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,28 +18,32 @@ function HeaderComponent() {
             {x.label}
           </Select.Option>
         ));
+        setQuery(query.query);
         setLanguageList(list);
       } catch (err) {
         console.log(err);
       }
     }
     languageListFun();
-  }, [dispatch]);
-  console.log(languageList);
+  }, [query.query, dispatch]);
 
   return (
     <div>
       <Input.Search
+        onChange={(e) => setQuery(e.target.value)}
         className="searchComponent"
         placeholder="Search term.."
-        onSearch={(value) =>
-          dispatch(Object.assign({}, { type: "SET_QUERY" }, { query: value }))
-        }
+        value={inputQuery}
+        onSearch={(value) => {
+          setQuery(value);
+          dispatch(Object.assign({}, { type: "SET_QUERY" }, { query: value }));
+        }}
       />
       <Select
         className="languageSelector"
         defaultValue="English"
         style={{ width: 120 }}
+        value={language.language}
         onChange={(value) =>
           dispatch(
             Object.assign({}, { type: "SET_LANGUAGE" }, { language: value })

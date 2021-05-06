@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { articleListData } from "../../actions/generalActions";
+import { articleListData, filterURL } from "../../actions/generalActions";
 import InfiniteScroll from "react-infinite-scroller";
 import { List, Spin, message } from "antd";
 import ArticleListItem from "./ArticleListItem";
@@ -41,6 +41,10 @@ function ArticleListComponent() {
             { status: false, loading: true, data: false }
           )
         );
+        //updating the url
+        filterURL({
+          data: { query: query.query, language: language.language },
+        });
         let data = await articleListData(1, query.query, language.language);
         dispatch(
           Object.assign(
