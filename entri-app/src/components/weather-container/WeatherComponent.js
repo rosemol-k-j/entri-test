@@ -77,8 +77,6 @@ function WeatherComponent() {
             "@2x.png"
           }
           alt="weatherIcon"
-          width="215"
-          height="235"
         />
       </div>
     </Card>

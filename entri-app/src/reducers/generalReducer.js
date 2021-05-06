@@ -92,3 +92,14 @@ export const setQueryReducer = (state = { query: "apple" }, action) => {
       return state;
   }
 };
+
+export const setLanguageReducer = (state = { language: "en" }, action) => {
+  switch (action.type) {
+    case "SET_LANGUAGE":
+      return {
+        language: action.language,
+      };
+    default:
+      return state;
+  }
+};

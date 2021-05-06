@@ -8,6 +8,7 @@ import ArticleListItem from "./ArticleListItem";
 function ArticleListComponent() {
   const articleList = useSelector((state) => state.fetchArticleListReducer);
   const query = useSelector((state) => state.setQueryReducer);
+  const language = useSelector((state) => state.setLanguageReducer);
   const articlePaginate = useSelector(
     (state) => state.fetchArticleListPaginateReducer
   );
@@ -40,7 +41,7 @@ function ArticleListComponent() {
             { status: false, loading: true, data: false }
           )
         );
-        let data = await articleListData(1, query.query);
+        let data = await articleListData(1, query.query, language.language);
         dispatch(
           Object.assign(
             {},
@@ -59,7 +60,7 @@ function ArticleListComponent() {
       }
     }
     articleListFunc();
-  }, [query, dispatch]);
+  }, [query, language, dispatch]);
 
   //Function for paginate
   async function articleListFuncPaginate() {
@@ -67,7 +68,7 @@ function ArticleListComponent() {
       dispatch(
         Object.assign({}, { type: "GET_ARTICLE_LIST_PAGINATE_LOADING" })
       );
-      let data = await articleListData(page);
+      let data = await articleListData(page, query.query, language.language);
       //concatinating the previous list and the paginated list
       let articleListUpdated = [...articleList.data, ...data.articles];
       dispatch(

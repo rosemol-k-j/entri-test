@@ -97,3 +97,17 @@ a {
 .searchComponent button.ant-btn.ant-btn-icon-only.ant-input-search-button {
   border: none !important;
 }
+
+.languageSelector {
+  width: 8rem !important;
+  top: 1.75em;
+  font-size: 1rem !important;
+  height: 3rem !important;
+  right: -22%;
+}
+.languageSelector .ant-select-selection-item {
+  margin-top: 6px;
+}
+.languageSelector .ant-select-selector {
+  height: 3rem !important;
+}

@@ -31,7 +31,7 @@ function ArticleListItem(article) {
             </Typography.Paragraph>
           </div>
           <img
-            src={article.article.urlToImage}
+            src={article.article.image}
             alt="articleImage"
             width="500"
             height="600"
