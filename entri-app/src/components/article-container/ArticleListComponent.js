@@ -7,23 +7,26 @@ import ArticleListItem from "./ArticleListItem";
 
 function ArticleListComponent() {
   const articleList = useSelector((state) => state.fetchArticleListReducer);
+  const articlePaginate = useSelector(
+    (state) => state.fetchArticleListPaginateReducer
+  );
 
-  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, sethasMore] = useState(true);
-
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
   function handleInfiniteOnLoad() {
     setLoading(true);
-    if (data.length > 10) {
+    console.log("here");
+    setPage(page + 1);
+    if (page > 5) {
       message.warning("Infinite List loaded all");
       sethasMore(false);
       setLoading(false);
       return;
     }
   }
-
   useEffect(() => {
     async function articleListFunc() {
       try {
@@ -34,9 +37,14 @@ function ArticleListComponent() {
             { status: false, loading: true, data: false }
           )
         );
-        let data = await articleListData();
-        dispatch(Object.assign({}, { type: "GET_ARTICLE_LIST_SUCCESS" }, data));
-        setData(data.data);
+        let data = await articleListData(1);
+        dispatch(
+          Object.assign(
+            {},
+            { type: "GET_ARTICLE_LIST_SUCCESS" },
+            { articles: data.articles }
+          )
+        );
       } catch (err) {
         dispatch(
           Object.assign(
@@ -50,6 +58,39 @@ function ArticleListComponent() {
     articleListFunc();
   }, [dispatch]);
 
+  useEffect(() => {
+    async function articleListFuncPaginate() {
+      try {
+        dispatch(
+          Object.assign({}, { type: "GET_ARTICLE_LIST_PAGINATE_LOADING" })
+        );
+        let data = await articleListData(page);
+        let articleListUpdated = [...articleList.data, ...data.articles];
+        dispatch(
+          Object.assign(
+            {},
+            { type: "GET_ARTICLE_LIST_PAGINATE_SUCCESS" },
+            { articles: articleListUpdated }
+          )
+        );
+        dispatch(
+          Object.assign(
+            {},
+            { type: "GET_ARTICLE_LIST_SUCCESS" },
+            { articles: articleListUpdated }
+          )
+        );
+        setLoading(false);
+      } catch (err) {
+        dispatch(
+          Object.assign({}, { type: "GET_ARTICLE_LIST_PAGINATE_FAILED" })
+        );
+      }
+    }
+    articleListFuncPaginate();
+  }, [page, articleList.data, dispatch]);
+
+  console.log(page);
   console.log(articleList);
   console.log(hasMore, loading);
 
@@ -66,13 +107,13 @@ function ArticleListComponent() {
         renderItem={(item, index) => (
           <ArticleListItem article={item} index={index} />
         )}
-      >
-        {articleList.loading && (
+      ></List>
+      {articleList.loading ||
+        (articlePaginate.loading && (
           <div>
-            <Spin />
+            <Spin className="fullWidth" size="large" />
           </div>
-        )}
-      </List>
+        ))}
     </InfiniteScroll>
   );
 }

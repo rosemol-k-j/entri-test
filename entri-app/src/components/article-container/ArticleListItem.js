@@ -3,7 +3,6 @@ import { Card, Typography, Tooltip } from "antd";
 import moment from "moment";
 
 function ArticleListItem(article) {
-  console.log(article);
   return (
     <a href={article.article.url} target="blank" rel="noopener noreferer">
       <Card>
@@ -31,7 +30,7 @@ function ArticleListItem(article) {
             </Typography.Paragraph>
           </div>
           <img
-            src={article.article.image}
+            src={article.article.urlToImage}
             alt="Girl in a jacket"
             width="500"
             height="600"

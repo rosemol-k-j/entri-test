@@ -2,7 +2,9 @@ a {
   color: currentColor;
   text-decoration: none;
 }
-
+.fullWidth {
+  width: 100% !important;
+}
 .homeComponent {
   height: 100vh;
 }
