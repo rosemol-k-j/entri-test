@@ -14,9 +14,10 @@ function ArticleListItem(article) {
                 {article.article.source.name}
               </Typography.Text>
               <Typography.Text className="publishDate">
+                {/* shows the time that published with the time (eg:21 days ago) */}
                 <Tooltip
                   title={moment(
-                    article.article.publishedAt.slice(0, -1)
+                    article.article.publishedAt.slice(0, -1) //removing the last alphabet because a extra "Z" is presented and its giving wrong date (eg:"2021-04-21T03:36:04Z")
                   ).fromNow()}
                 >
                   {moment(article.article.publishedAt.slice(0, -1)).format(
@@ -31,7 +32,7 @@ function ArticleListItem(article) {
           </div>
           <img
             src={article.article.urlToImage}
-            alt="Girl in a jacket"
+            alt="articleImage"
             width="500"
             height="600"
           />

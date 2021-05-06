@@ -53,3 +53,31 @@ export const fetchArticleListPaginateReducer = (
       return state;
   }
 };
+
+export const fetchWeatherReducer = (
+  state = { status: true, loading: false, data: [] },
+  action
+) => {
+  switch (action.type) {
+    case "GET_WEATHER_SUCCESS":
+      return {
+        status: true,
+        data: action,
+        loading: false,
+      };
+    case "GET_WEATHER_LOADING":
+      return {
+        status: false,
+        data: [],
+        loading: true,
+      };
+    case "GET_WEATHER_FAILED":
+      return {
+        status: false,
+        data: [],
+        loading: false,
+      };
+    default:
+      return state;
+  }
+};

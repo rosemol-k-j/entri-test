@@ -1,31 +1,23 @@
 import React from "react";
 import { Layout } from "antd";
 import ArticleListComponent from "../article-container/ArticleListComponent";
+import WeatherComponent from "../weather-container/WeatherComponent";
+import HeaderComponent from "../Header/HeaderComponent";
 const { Header, Sider, Content } = Layout;
 
 function Container() {
-  var x = document.getElementById("demo");
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-  }
-
-  function showPosition(position) {
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
-  }
-
   return (
     <Layout className="homeComponent">
-      <Header className="headerComponent">Header</Header>
+      <Header className="headerComponent">
+        <HeaderComponent />
+      </Header>
       <Layout className="articleContent">
         <Content className="articleListComponent">
           <ArticleListComponent />
         </Content>
-        <Sider className="weatherComponent">Sider</Sider>
+        <Sider className="weatherComponent">
+          <WeatherComponent />
+        </Sider>
       </Layout>
     </Layout>
   );

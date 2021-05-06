@@ -7,7 +7,7 @@ import Container from "./components/Container/Container";
 function App() {
   return (
     <Router>
-      <div className="App tk-sofia-pro">
+      <div className="App">
         <Route exact path="/" component={Container} />
       </div>
     </Router>

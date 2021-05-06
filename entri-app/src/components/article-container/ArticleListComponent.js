@@ -16,11 +16,13 @@ function ArticleListComponent() {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
+  //To handle the scroll
   function handleInfiniteOnLoad() {
     setLoading(true);
-    console.log("here");
     setPage(page + 1);
+    articleListFuncPaginate();
     if (page > 5) {
+      //for a free account user is only allowed to paginate till page 5
       message.warning("Infinite List loaded all");
       sethasMore(false);
       setLoading(false);
@@ -58,63 +60,58 @@ function ArticleListComponent() {
     articleListFunc();
   }, [dispatch]);
 
-  useEffect(() => {
-    async function articleListFuncPaginate() {
-      try {
-        dispatch(
-          Object.assign({}, { type: "GET_ARTICLE_LIST_PAGINATE_LOADING" })
-        );
-        let data = await articleListData(page);
-        let articleListUpdated = [...articleList.data, ...data.articles];
-        dispatch(
-          Object.assign(
-            {},
-            { type: "GET_ARTICLE_LIST_PAGINATE_SUCCESS" },
-            { articles: articleListUpdated }
-          )
-        );
-        dispatch(
-          Object.assign(
-            {},
-            { type: "GET_ARTICLE_LIST_SUCCESS" },
-            { articles: articleListUpdated }
-          )
-        );
-        setLoading(false);
-      } catch (err) {
-        dispatch(
-          Object.assign({}, { type: "GET_ARTICLE_LIST_PAGINATE_FAILED" })
-        );
-      }
+  //Function for paginate
+  async function articleListFuncPaginate() {
+    try {
+      dispatch(
+        Object.assign({}, { type: "GET_ARTICLE_LIST_PAGINATE_LOADING" })
+      );
+      let data = await articleListData(page);
+      //concatinating the previous list and the paginated list
+      let articleListUpdated = [...articleList.data, ...data.articles];
+      dispatch(
+        Object.assign(
+          {},
+          { type: "GET_ARTICLE_LIST_PAGINATE_SUCCESS" },
+          { articles: articleListUpdated }
+        )
+      );
+      dispatch(
+        Object.assign(
+          {},
+          { type: "GET_ARTICLE_LIST_SUCCESS" },
+          { articles: articleListUpdated }
+        )
+      );
+      setLoading(false);
+    } catch (err) {
+      dispatch(Object.assign({}, { type: "GET_ARTICLE_LIST_PAGINATE_FAILED" }));
     }
-    articleListFuncPaginate();
-  }, [page, articleList.data, dispatch]);
-
-  console.log(page);
-  console.log(articleList);
-  console.log(hasMore, loading);
+  }
 
   return (
-    <InfiniteScroll
-      initialLoad={false}
-      pageStart={0}
-      loadMore={handleInfiniteOnLoad}
-      hasMore={!loading && hasMore}
-      useWindow={false}
-    >
-      <List
-        dataSource={articleList.data}
-        renderItem={(item, index) => (
-          <ArticleListItem article={item} index={index} />
-        )}
-      ></List>
+    <>
+      <InfiniteScroll
+        initialLoad={false}
+        pageStart={0}
+        loadMore={handleInfiniteOnLoad}
+        hasMore={!loading && hasMore}
+        useWindow={false}
+      >
+        <List
+          dataSource={articleList.data}
+          renderItem={(item, index) => (
+            <ArticleListItem article={item} index={index} />
+          )}
+        ></List>
+      </InfiniteScroll>
       {articleList.loading ||
         (articlePaginate.loading && (
           <div>
             <Spin className="fullWidth" size="large" />
           </div>
         ))}
-    </InfiniteScroll>
+    </>
   );
 }
 
