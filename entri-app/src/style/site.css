@@ -1,3 +1,65 @@
-h1 {
-  font-size: 200px;
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+.homeComponent {
+  height: 100vh;
+}
+
+.headerComponent {
+  box-shadow: 0px 9px 12px #00000029;
+  height: 6rem;
+}
+/* .articleContent {
+  width: 100%;
+  display: flex;
+  height: calc(100vh - 6rem);
+} */
+.articleListComponent {
+  box-shadow: 0px 9px 12px #00000029;
+  /* width: 70% !important; */
+  overflow: scroll;
+}
+.articleListComponent .ant-card.ant-card-bordered {
+  padding: 1.5rem;
+  border-bottom: 0.1px solid #bfbfbf;
+  /* cursor: pointer; */
+}
+
+.articleListComponent .ant-card .listItem {
+  display: flex;
+  justify-content: space-between;
+}
+.listItem:hover .articleHead h1 {
+  text-decoration: underline;
+}
+.listItem .itemContent {
+  padding-right: 1.5rem;
+}
+.articleHead {
+  margin-bottom: 1rem;
+}
+.itemContent h1 {
+  font-size: 2rem !important;
+}
+.sourceName,
+.publishDate {
+  color: #7a7a7a !important;
+}
+.publishDate {
+  margin-left: 1rem;
+}
+
+.articleListComponent .ant-card .listItem img {
+  width: 12rem;
+  height: 9rem;
+}
+.articleListComponent .ant-avatar img {
+  width: 7rem;
+}
+.weatherComponent {
+  width: 30% !important;
+  max-width: 30% !important;
+  min-width: 30% !important;
 }

@@ -5,6 +5,7 @@ let Api = axios.create({
   withCredentials: false,
   headers: {
     crossDomian: true,
+    // "Access-Control-Allow-Origin": "*",
   },
 });
 export const currentWeather = (place) => {
@@ -15,9 +16,12 @@ export const currentWeather = (place) => {
   );
 };
 
-export const articleList = (query) => {
-  return Api.get(
-    "https://newsapi.org/v2/everything?apiKey=b752afffaea345d1a78e19ceb03ee6f2" +
-      query
-  );
+export const articleListData = () => {
+  return fetch(
+    "https://gnews.io/api/v4/search?q=malayalam&lang=ml&page=3&token=850c4200eddd8380d489df548d3806df"
+  ).then((res) => res.json());
+
+  // return Api.get(
+  //   "https://gnews.io/api/v4/search?q=malayalam&lang=ml&page=3&token=850c4200eddd8380d489df548d3806df"
+  // );
 };
