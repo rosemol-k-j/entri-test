@@ -6,27 +6,18 @@ import { languages } from "../Header/globalConst";
 function HeaderComponent() {
   const query = useSelector((state) => state.setQueryReducer);
   const language = useSelector((state) => state.setLanguageReducer);
-  const [languageList, setLanguageList] = useState([]);
   const [inputQuery, setQuery] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
-    async function languageListFun() {
-      try {
-        var list = languages.map((x) => (
-          <Select.Option key={x.value} value={x.value}>
-            {x.label}
-          </Select.Option>
-        ));
-        setQuery(query.query);
-        setLanguageList(list);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    languageListFun();
+    setQuery(query.query);
   }, [query.query, dispatch]);
 
+  const languageList = languages.map((x) => (
+    <Select.Option key={x.value} value={x.value}>
+      {x.label}
+    </Select.Option>
+  ));
   return (
     <div>
       <Input.Search
